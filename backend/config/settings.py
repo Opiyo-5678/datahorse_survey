@@ -94,9 +94,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Add this new section:
-STATICFILES_DIRS = [
-    BASE_DIR / 'surveys' / 'static',
-]
+STATICFILES_DIRS = []
+_static_dir = BASE_DIR / 'surveys' / 'static'
+if os.path.exists(_static_dir):
+    STATICFILES_DIRS = [_static_dir]
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -125,7 +126,8 @@ SIMPLE_JWT = {
 
 # ── CORS
 CORS_ALLOWED_ORIGINS = [
-    os.getenv('FRONTEND_URL', 'http://localhost:5173'),
+    'https://datahorse-frontend.onrender.com',
+    'http://localhost:5173',
     'http://localhost:3000',
 ]
 CORS_ALLOW_CREDENTIALS = True
